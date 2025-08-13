@@ -15,9 +15,9 @@ class NewsResponces {
 
   NewsResponces.fromJson(dynamic json) {
     status = json['status'];
-    totalResults = json['totalResults'];
     code = json['code'];
     message = json['message'];
+    totalResults = json['totalResults'];
     if (json['articles'] != null) {
       articles = [];
       json['articles'].forEach((v) {

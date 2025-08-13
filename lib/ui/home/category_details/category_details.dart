@@ -36,6 +36,10 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.grayColor,
+
+                ),
                   onPressed: () {
                     ApiManager.getSources();
                     setState(() {
@@ -81,7 +85,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
         }
         //todo: server=> response=>success
         var sourcesList = snapshot.data?.sources ?? [];
-        return SourceTabWidget(sourcesList: [],);
+        return SourceTabWidget(sourcesList: sourcesList);
       },
     );
   }

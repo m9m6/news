@@ -28,16 +28,42 @@ class NewsItem extends StatelessWidget {
       child: Column(
         children: [
           ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: CachedNetworkImage(
-                imageUrl: news.urlToImage ?? '',
-                placeholder: (context, url) => Center(
-                    child: CircularProgressIndicator(
+            borderRadius: BorderRadius.circular(8),
+            child: CachedNetworkImage(
+              imageUrl: news.urlToImage ?? '',
+              placeholder: (context, url) => Center(
+                child: CircularProgressIndicator(
                   color: AppColors.grayColor,
-                )),
-                errorWidget: (context, url, error) => Icon(Icons.error_outline),
-                color: Colors.red,
-              )),
+                ),
+              ),
+              errorWidget: (context, url, error) => Icon(
+                Icons.error_outline,
+                color: AppColors.grayColor,
+              ),
+            ),
+          ),
+          SizedBox(height: height*0.02,),
+          Text(
+            news.title ?? '',
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+          SizedBox(height: height*0.02,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
+                  'By: ${news.author?.substring(0,6) ?? ''}',
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+              ),
+              SizedBox(width: width*0.02,),
+              Text(
+                ' ${news.publishedAt?.substring(0,7) ?? ''}',
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+            ],
+          )
         ],
       ),
     );

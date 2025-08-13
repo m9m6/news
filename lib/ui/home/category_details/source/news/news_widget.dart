@@ -13,8 +13,8 @@ class NewsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var width=MediaQuery.of(context).size.width;
-    var height=MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
 
     return FutureBuilder<NewsResponces?>(
       future: ApiManager.getNewsBySourceId(source.id ?? ''),
@@ -35,21 +35,18 @@ class NewsWidget extends StatelessWidget {
             children: [
               Text(
                 'Something went Wrong',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .labelMedium,
+                style: Theme.of(context).textTheme.labelMedium,
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.grayColor,
+                ),
                 onPressed: () {
                   ApiManager.getNewsBySourceId(source.id ?? '');
                 },
                 child: Text(
                   'Try Again',
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .labelMedium,
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
               ),
             ],
@@ -64,25 +61,18 @@ class NewsWidget extends StatelessWidget {
             children: [
               Text(
                 snapshot.data!.message!,
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .labelMedium,
+                style: Theme.of(context).textTheme.labelMedium,
               ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.grayColor,
-
                   ),
                   onPressed: () {
                     ApiManager.getNewsBySourceId(source.id ?? '');
                   },
                   child: Text(
                     'Try Again',
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .labelMedium,
+                    style: Theme.of(context).textTheme.labelMedium,
                   ))
             ],
           );
@@ -90,13 +80,17 @@ class NewsWidget extends StatelessWidget {
         //todo: server=> response=>success
         var newsList = snapshot.data?.articles ?? [];
         return ListView.separated(
+          separatorBuilder: (context, index) {
+            return SizedBox(
+              height: height * 0.02,
+            );
+          },
           itemBuilder: (context, index) {
             return NewsItem(news: newsList[index]);
           },
-          itemCount:newsList.length,
-          separatorBuilder: (BuildContext context, int index) {
-            return SizedBox(height: height*0.02,);
-          },);
-      },);
+          itemCount: newsList.length,
+        );
+      },
+    );
   }
 }
